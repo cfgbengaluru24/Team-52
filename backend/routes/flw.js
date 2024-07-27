@@ -1,6 +1,7 @@
 import express from 'express';
-import {createBeneficiary, getAllBeneficiary, createApplication, getAllApplication, myProfile, updateAllApplication} from '../controllers/flw.js';
+import {createBeneficiary, getAllBeneficiary, createApplication, getAllApplication, updateApplication} from '../controllers/flw.js';
 //import { createFLW,deleteFLW, getAllFLW,myProfile} from '../controllers/admin.js';
+import { myProfile } from '../controllers/admin.js';
 
 // import {createScheme,deleteScheme,getAllScheme,updateScheme} from '../controllers/scheme.js';
 // import {getAllApplication,getSingleApplication} from '../controllers/application.js';
@@ -14,5 +15,5 @@ router.post('/flw/application/new', isAuth, createApplication);
 router.get('/flw/profile', isAuth, myProfile);
 router.get('/flw/beneficiary/all', isAuth, getAllBeneficiary);
 router.get('/flw/application/all', isAuth,  getAllApplication);
-router.put('/flw/application/update', isAuth, updateAllApplication);
+router.put('/flw/application/update', isAuth, updateApplication);
 export default router;
