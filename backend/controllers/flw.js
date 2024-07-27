@@ -12,6 +12,7 @@ export const createBeneficiary = TryCatch(async (req, res) => {
   const {
     name,
     phone_no,
+    age,
     aadhar_no,
     gender,
     category,
@@ -26,6 +27,7 @@ export const createBeneficiary = TryCatch(async (req, res) => {
     name,
     phone_no,
     aadhar_no,
+    age,
     gender,
     category,
     income,

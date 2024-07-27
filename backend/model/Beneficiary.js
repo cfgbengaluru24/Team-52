@@ -9,6 +9,10 @@ const BeneficiarySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    age:{
+        type:Number,
+        required:true,
+    },
     aadhar_no: {
         type: String,
         required: true,

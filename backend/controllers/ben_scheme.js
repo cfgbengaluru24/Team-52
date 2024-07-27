@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import Beneficiary from "../models/Beneficiary";
-import Scheme from "../models/Scheme";
+import Beneficiary from "../model/Beneficiary.js";
+import Scheme from "../model/Scheme.js";
 
 
 async function getEligibleBeneficiaries(schemeId) {
     try {
-        // Find the scheme by ID
+        // Find the scheme by ID   
         const scheme = await Scheme.findById(schemeId);
 
         if (!scheme) {
@@ -41,7 +41,7 @@ async function getEligibleBeneficiaries(schemeId) {
         }
 
         if (scheme.criteria.marital_status) {
-            query.marital_status = scheme.criteria.marital_status;
+            query.marital_status === scheme.criteria.marital_status;
         }
 
         // Find all beneficiaries that match the criteria
@@ -55,11 +55,5 @@ async function getEligibleBeneficiaries(schemeId) {
 }
 
 // Example usage
-getEligibleBeneficiaries('66a552bb2effc3f338f6546a')
-    .then(beneficiaries => {
-        console.log('Eligible Beneficiaries:', beneficiaries);
-    })
-    .catch(error => {
-        console.error('Error fetching eligible beneficiaries:', error);
-    });
+export default getEligibleBeneficiaries;
 
