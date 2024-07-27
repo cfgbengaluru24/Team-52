@@ -21,11 +21,13 @@ app.get('/',(req,res)=>{
 import userRoutes from './routes/user.js';
 //import courseRoutes from './routes/course.js';*/
 import adminRoutes from './routes/admin.js';
+import flwRoutes from './routes/flw.js';
 
 
 app.use('/api',userRoutes);
 //app.use('/api',courseRoutes);
 app.use('/api',adminRoutes);
+app.use("/api",flwRoutes)
 
 app.listen(port,()=>{
     console.log(`Server is running on http://localhost:${port}`);
