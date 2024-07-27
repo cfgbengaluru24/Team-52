@@ -37,8 +37,12 @@ export const createBeneficiary = TryCatch(async (req, res) => {
 });
 
 export const createApplication = TryCatch(async (req, res) => {
-  const { aadhar_no1, application_status, reference_token, docs_collected } =
-    req.body;
+  const {
+    aadhar_no: aadhar_no1,
+    application_status,
+    reference_token,
+    docs_collected,
+  } = req.body;
   const beneficiary = Beneficiary.find({ aadhar_no: aadhar_no1 });
   const flw_id = req.user._id;
 
