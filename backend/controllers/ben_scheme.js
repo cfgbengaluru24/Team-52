@@ -57,3 +57,73 @@ async function getEligibleBeneficiaries(schemeId) {
 // Example usage
 export default getEligibleBeneficiaries;
 
+
+
+
+async function getEligibleSchemes(beneficiaryId) {
+    try {
+        // Find the beneficiary by ID
+        const beneficiary = await Beneficiary.findById(beneficiaryId);
+
+        if (!beneficiary) {
+            throw new Error('Beneficiary not found');
+        }
+
+        // Retrieve all schemes
+        const schemes = await Scheme.find();
+
+        const eligibleSchemes = schemes.filter(scheme => {
+            // Build the eligibility criteria for the beneficiary
+            const criteria = scheme.criteria;
+
+            let isEligible = true;
+
+            if (criteria.age_range) {
+                const age = beneficiary.age; // Assuming you have an age field in Beneficiary
+                if (criteria.age_range.min !== undefined && age < criteria.age_range.min) {
+                    isEligible = false;
+                }
+                if (criteria.age_range.max !== undefined && age > criteria.age_range.max) {
+                    isEligible = false;
+                }
+            }
+
+            if (criteria.gender && !criteria.gender.includes(beneficiary.gender)) {
+                isEligible = false;
+            }
+
+            if (criteria.income !== undefined && beneficiary.income > criteria.income) {
+                isEligible = false;
+            }
+
+            if (criteria.region && !criteria.region.includes(beneficiary.region)) {
+                isEligible = false;
+            }
+
+            if (criteria.category && !criteria.category.includes(beneficiary.category)) {
+                isEligible = false;
+            }
+
+            if (criteria.marital_status && criteria.marital_status !== beneficiary.marital_status) {
+                isEligible = false;
+            }
+
+            return isEligible;
+        });
+
+        return eligibleSchemes;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+// Example usage
+getEligibleSchemes('60d5f8f8b6e3a0b5c8dcb3f0')
+    .then(schemes => {
+        console.log('Eligible Schemes:', schemes);
+    })
+    .catch(error => {
+        console.error('Error fetching eligible schemes:', error);
+    });
+
