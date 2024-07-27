@@ -16,7 +16,7 @@ export const createFLW=TryCatch(async(req,res)=>{
     email,
     password:hashPassword,
     role:"FLW",
-    // createdBy:req.user._id
+    createdBy:req.user._id
    });
    res.status(201).json({
     message:"FLW created successfully"
@@ -45,6 +45,8 @@ export const myProfile=TryCatch(async(req,res)=>{
       const user= await User.findById(req.user._id);
       res.json({user});
    });
+
+
 
 
 
@@ -193,5 +195,66 @@ export const createScheme = TryCatch(async (req, res) => {
 
    res.status(201).json({
        message: "Scheme created successfully",
+   });
+});
+
+export const getAllScheme = TryCatch(async (req, res) => {
+   const schemes = await Scheme.find();
+   res.json({ schemes });
+});
+
+export const getScheme = TryCatch(async (req, res) => {
+   const scheme = await Scheme.findById(req.params.id);
+   if (!scheme) {
+       return res.status(404).json({
+           message: "Scheme not found"
+       });
+   }
+   res.json({ scheme });
+});
+
+export const updateScheme = TryCatch(async (req, res) => {
+   const scheme = await Scheme.findById(req.params.id);
+   if (!scheme) {
+       return res.status(404).json({
+           message: "Scheme not found"
+       });
+   }
+
+   const {
+       name,
+       date_of_release,
+       govt_release,
+       link_to_application,
+       description,
+       documents_required,
+       criteria
+   } = req.body;
+
+   await scheme.updateOne({
+       name,
+       date_of_release,
+       govt_release,
+       link_to_application,
+       description,
+       documents_required,
+       criteria
+   });
+
+   res.json({
+       message: "Scheme updated successfully"
+   });
+});
+
+export const deleteScheme = TryCatch(async (req, res) => {
+   const scheme = await Scheme.findById(req.params.id);
+   if (!scheme) {
+       return res.status(404).json({
+           message: "Scheme not found"
+       });
+   }
+   await scheme.deleteOne();
+   res.json({
+       message: "Scheme deleted successfully"
    });
 });
