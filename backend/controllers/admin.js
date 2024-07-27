@@ -15,7 +15,7 @@ export const createFLW=TryCatch(async(req,res)=>{
     name,
     email,
     password:hashPassword,
-    role:"FLW",
+    role:"flw",
     // createdBy:req.user._id
    });
    res.status(201).json({
@@ -24,7 +24,7 @@ export const createFLW=TryCatch(async(req,res)=>{
 });
 
 export const getAllFLW=TryCatch(async(req,res)=>{
-      const flws= await User.find({role:"FLW"});
+      const flws= await User.find({role:"flw"});
       res.json({flws});
    });
 
