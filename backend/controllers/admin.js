@@ -2,6 +2,7 @@ import TryCatch from "../middleware/TryCatch.js";
 import {rm} from "fs";
 import fs from "fs";
 import User from "../model/User.js";
+import Scheme from "../model/Scheme.js";
 import bcrypt from "bcryptjs";
 
 export const createFLW=TryCatch(async(req,res)=>{
@@ -21,20 +22,6 @@ export const createFLW=TryCatch(async(req,res)=>{
     message:"FLW created successfully"
    });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // export const addLecture=TryCatch(async(req,res)=>{
 //     const course=await Course.findById(req.params.id);
@@ -144,3 +131,29 @@ export const createFLW=TryCatch(async(req,res)=>{
 //             });
 //         }
 // });
+
+export const createScheme = TryCatch(async (req, res) => {
+   const {
+       name,
+       date_of_release,
+       govt_release,
+       link_to_application,
+       description,
+       documents_required,
+       criteria
+   } = req.body;
+
+   await Scheme.create({
+       name,
+       date_of_release,
+       govt_release,
+       link_to_application,
+       description,
+       documents_required,
+       criteria
+   });
+
+   res.status(201).json({
+       message: "Scheme created successfully",
+   });
+});

@@ -55,7 +55,7 @@ const SchemeSchema = new mongoose.Schema({
         },
         marital_status: {
             type: String,
-            required: falses,
+            required: false,
             enum: ['single', 'married', 'widowed', 'divorced']
         },
     },
