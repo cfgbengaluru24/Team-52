@@ -4,6 +4,7 @@ const sendMail = async (email, subject, data) => {
     try {
         const transporter = createTransport({
         service: 'gmail',
+        secure: true,
         auth: {
             user: process.env.EMAIL,
             pass: process.env.PASSWORD

@@ -2,16 +2,18 @@ import TryCatch from "../middleware/TryCatch.js";
 import {rm} from "fs";
 import fs from "fs";
 import User from "../model/User.js";
+import bcrypt from "bcryptjs";
 
 export const createFLW=TryCatch(async(req,res)=>{
    const {name,email,password}= req.body;
 
    //const image=req.file;
 
+   const hashPassword = await bcrypt.hash(password, 10);
    await User.create({
     name,
     email,
-    password,
+    password:hashPassword,
     role:"FLW",
     // createdBy:req.user._id
    });
@@ -19,6 +21,20 @@ export const createFLW=TryCatch(async(req,res)=>{
     message:"FLW created successfully"
    });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // export const addLecture=TryCatch(async(req,res)=>{
 //     const course=await Course.findById(req.params.id);

@@ -1,6 +1,6 @@
 import express from 'express';
 import {createFLW} from '../controllers/admin.js';
-// import { createFLW,deleteFLW, getAllFLW,myProfile} from '../controllers/admin.js';
+//import { createFLW,deleteFLW, getAllFLW,myProfile} from '../controllers/admin.js';
 
 // import {createScheme,deleteScheme,getAllScheme,updateScheme} from '../controllers/scheme.js';
 // import {getAllApplication,getSingleApplication} from '../controllers/application.js';
@@ -8,7 +8,7 @@ import { isAuth , isAdmin} from '../middleware/isAuth.js';
 import uploadFiles  from '../middleware/multer.js';
 const router = express.Router();
 
-router.post('/flw/new',createFLW);
+router.post('/flw/new',isAuth,isAdmin,createFLW);
 // router.delete('/flw/:id',isAuth,isAdmin,deleteFLW);
 // router.get('/users',isAuth,isAdmin,getAllFLW);
 // router.get('/flw/myprofile',isAuth,isAdmin,myProfile);

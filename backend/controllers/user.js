@@ -8,6 +8,8 @@ export const register = TryCatch(async (req, res) => {
     const { email, password, name } = req.body;
     let user = await User.findOne({ email });
 
+
+
     if (user) {
         return res.status(400).json({ message: "User already exists" });
     }
