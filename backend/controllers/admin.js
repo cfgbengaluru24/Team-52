@@ -45,24 +45,7 @@ export const myProfile=TryCatch(async(req,res)=>{
       const user= await User.findById(req.user._id);
       res.json({user});
    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   
 // export const addLecture=TryCatch(async(req,res)=>{
 //     const course=await Course.findById(req.params.id);
 //     if(!course){
