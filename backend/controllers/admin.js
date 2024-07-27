@@ -23,6 +23,44 @@ export const createFLW=TryCatch(async(req,res)=>{
    });
 });
 
+export const getAllFLW=TryCatch(async(req,res)=>{
+      const flws= await User.find({role:"FLW"});
+      res.json({flws});
+   });
+
+export const deleteFLW=TryCatch(async(req,res)=>{
+      const flw=await User.findById(req.params.id);
+      if(!flw){
+         return res.status(404).json({
+               message:"FLW not found"
+         });
+      }
+      await flw.deleteOne();
+      res.json({
+         message:"FLW deleted successfully"
+      });
+   });
+
+export const myProfile=TryCatch(async(req,res)=>{
+      const user= await User.findById(req.user._id);
+      res.json({user});
+   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // export const addLecture=TryCatch(async(req,res)=>{
 //     const course=await Course.findById(req.params.id);
 //     if(!course){
