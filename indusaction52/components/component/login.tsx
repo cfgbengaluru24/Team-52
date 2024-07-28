@@ -13,16 +13,32 @@ export function LogIn() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleNavigate = (path: string) => {
+    router.push(path);
+  };
+  
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    
-    // Simplified example - in a real application, you would verify the credentials
-    if (role === 'admin' && email === 'admin@example.com' && password === 'admin') {
-      router.push('/admin');
-    } else if (role === 'flw' && email === 'flw@example.com' && password === 'flw') {
-      router.push('/flwform');
+    const response = await fetch("http://localhost:5000/api/user/login", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+  
+    const data = await response.json();
+    localStorage.setItem("role", data.role);
+    localStorage.setItem('token', data.token);
+    console.log(data.role);
+    if (response.ok) {
+      if (data.role === "flw") {
+        handleNavigate('/bfndetails');
+      } else {
+        handleNavigate("/admin");
+      }
     } else {
-      alert('Invalid credentials or role selection');
+      alert("Wrong creds!!");
     }
   };
 
@@ -34,26 +50,34 @@ export function LogIn() {
             Sign in to your account
           </h2>
           <p className="mt-2 text-center text-sm text-muted-foreground">
-            Select your role and enter your credentials
+             Enter your credentials
           </p>
         </div>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <Label htmlFor="role" className="block text-sm font-medium text-muted-foreground">
-              Role
             </Label>
             <div className="mt-1">
-              <Select value={role} onValueChange={setRole}>
-                <SelectTrigger id="role" className="w-full">
+            {/* <select
+              value={role}
+              onChange={(e) => {
+                setRole(e.target.value);
+              }}
+            >
+              <option value="FWL">FWL</option>
+              <option value="admin">Admin</option>
+            </select> */}
+              {/* <Select value={role} onValueChange={(value) => setRole(value)}>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select your role" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
+
+                  <SelectContent id="role" >
                     <SelectItem value="admin">Admin</SelectItem>
                     <SelectItem value="flw">FLW</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+                  </SelectContent>
+
+              </Select> */}
             </div>
           </div>
           <div>

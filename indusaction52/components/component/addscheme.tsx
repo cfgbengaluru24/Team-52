@@ -7,6 +7,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Button } from "@/components/ui/button"
 
 export function AddScheme() {
+  
   return (
     <div className="flex justify-center">
       <Card className="w-full max-w-2xl">
